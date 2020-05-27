@@ -6,7 +6,8 @@ namespace csharp_social_networking
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            UserInterface ui = new UserInterface();
+            ui.start();
         }
     }
 }

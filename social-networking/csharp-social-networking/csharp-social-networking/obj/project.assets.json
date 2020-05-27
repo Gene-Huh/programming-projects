@@ -694,11 +694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Gene\\Tech Elevator\\programming-projects\\social-networking\\csharp-social-networking\\csharp-social-networking\\csharp-social-networking.csproj",
+      "projectUniqueName": "D:\\Tech Elevator\\programming-projects\\social-networking\\csharp-social-networking\\csharp-social-networking\\csharp-social-networking.csproj",
       "projectName": "csharp-social-networking",
-      "projectPath": "C:\\Users\\Gene\\Tech Elevator\\programming-projects\\social-networking\\csharp-social-networking\\csharp-social-networking\\csharp-social-networking.csproj",
+      "projectPath": "D:\\Tech Elevator\\programming-projects\\social-networking\\csharp-social-networking\\csharp-social-networking\\csharp-social-networking.csproj",
       "packagesPath": "C:\\Users\\Gene\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Gene\\Tech Elevator\\programming-projects\\social-networking\\csharp-social-networking\\csharp-social-networking\\obj\\",
+      "outputPath": "D:\\Tech Elevator\\programming-projects\\social-networking\\csharp-social-networking\\csharp-social-networking\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\dotnet\\sdk\\NuGetFallbackFolder"

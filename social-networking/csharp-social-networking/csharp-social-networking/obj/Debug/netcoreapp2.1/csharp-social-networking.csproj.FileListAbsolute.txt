@@ -1,0 +1,11 @@
+D:\Tech Elevator\programming-projects\social-networking\csharp-social-networking\csharp-social-networking\obj\Debug\netcoreapp2.1\csharp-social-networking.csprojAssemblyReference.cache
+D:\Tech Elevator\programming-projects\social-networking\csharp-social-networking\csharp-social-networking\obj\Debug\netcoreapp2.1\csharp-social-networking.csproj.CoreCompileInputs.cache
+D:\Tech Elevator\programming-projects\social-networking\csharp-social-networking\csharp-social-networking\obj\Debug\netcoreapp2.1\csharp-social-networking.AssemblyInfoInputs.cache
+D:\Tech Elevator\programming-projects\social-networking\csharp-social-networking\csharp-social-networking\obj\Debug\netcoreapp2.1\csharp-social-networking.AssemblyInfo.cs
+D:\Tech Elevator\programming-projects\social-networking\csharp-social-networking\csharp-social-networking\bin\Debug\netcoreapp2.1\csharp-social-networking.deps.json
+D:\Tech Elevator\programming-projects\social-networking\csharp-social-networking\csharp-social-networking\bin\Debug\netcoreapp2.1\csharp-social-networking.runtimeconfig.json
+D:\Tech Elevator\programming-projects\social-networking\csharp-social-networking\csharp-social-networking\bin\Debug\netcoreapp2.1\csharp-social-networking.runtimeconfig.dev.json
+D:\Tech Elevator\programming-projects\social-networking\csharp-social-networking\csharp-social-networking\bin\Debug\netcoreapp2.1\csharp-social-networking.dll
+D:\Tech Elevator\programming-projects\social-networking\csharp-social-networking\csharp-social-networking\bin\Debug\netcoreapp2.1\csharp-social-networking.pdb
+D:\Tech Elevator\programming-projects\social-networking\csharp-social-networking\csharp-social-networking\obj\Debug\netcoreapp2.1\csharp-social-networking.dll
+D:\Tech Elevator\programming-projects\social-networking\csharp-social-networking\csharp-social-networking\obj\Debug\netcoreapp2.1\csharp-social-networking.pdb
