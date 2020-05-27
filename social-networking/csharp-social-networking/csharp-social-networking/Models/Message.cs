@@ -4,7 +4,7 @@ using System.Text;
 
 namespace csharp_social_networking.Models
 {
-    class Message
+    public class Message
     {
         public string MessageText { get; }
         public DateTime Timestamp { get; }
@@ -12,7 +12,7 @@ namespace csharp_social_networking.Models
         public Message(string text)
         {
             MessageText = text;
-            Timestamp = DateTime.Now;
+            Timestamp = DateTime.UtcNow;
         }
     }
 }

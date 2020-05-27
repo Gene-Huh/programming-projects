@@ -5,7 +5,7 @@ using System.Text;
 
 namespace csharp_social_networking
 {
-    class User
+    public class User
     {
         public string Username { get; }
         public List<User> FollowList { get; private set; }
@@ -34,15 +34,17 @@ namespace csharp_social_networking
             }
         }
 
-        public void displayMessageList()
+        public List<string> getUserMessages()
         {
-            if (MessageList != null)
+            List<string> messages = new List<string>();
+            if (MessageList != null && MessageList.Count >0)
             {
                 foreach (Message message in MessageList)
                 {
-                    Console.WriteLine($"    {message.MessageText} {message.Timestamp}");
+                    messages.Add(message.MessageText + " " + TimeFormatter.TimeAgo(message.Timestamp));
                 }
             }
+            return messages;
         }
     }
 }
