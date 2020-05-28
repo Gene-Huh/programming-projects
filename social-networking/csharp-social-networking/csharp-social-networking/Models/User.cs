@@ -5,6 +5,7 @@ using System.Text;
 
 namespace csharp_social_networking
 {
+    [Serializable]
     public class User
     {
         public string Username { get; }

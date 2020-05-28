@@ -4,6 +4,7 @@ using System.Text;
 
 namespace csharp_social_networking.Models
 {
+    [Serializable]
     public class Message
     {
         public string MessageText { get; }
