@@ -1,4 +1,5 @@
 ﻿using csharp_social_networking.DAL;
+using csharp_social_networking.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,7 +19,7 @@ namespace csharp_social_networking
 
             string userInput = "";
             Console.WriteLine(GREETING);
-            Console.WriteLine(HELP);
+            Console.WriteLine(HELP + "\r\n");
             userInput = Console.ReadLine();
             while (userInput.ToLower() != "exit")
             {
@@ -30,43 +31,57 @@ namespace csharp_social_networking
         public List<string> commandParser(string inputString)
         {
             List<string> displayList = new List<string>();
-            if (inputString.ToLower() == "help")
+            if (inputString != null || inputString != "")
             {
-                displayList = getHelpTerms();
-            }
-            else if (inputString != null || inputString != "")
-            {
-                List<string> splitInputString = new List<string>(inputString.Split(' '));
-                string username = splitInputString[0];
-                if (Users.TryGetValue(username, out User user))
+                if (inputString.ToLower() == "help")
                 {
-                    if (splitInputString.Count == 1)
-                    {
-                        displayList = user.getUserMessages();
-                    }
-                    else if (splitInputString.Contains("->"))
-                    {
-                        StringBuilder postText = new StringBuilder();
-                        postText.AppendJoin(' ', splitInputString.GetRange(2, splitInputString.Count - 2));
-
-                        user.postMessage(postText.ToString());
-                        displayList.Add($"{username} POSTED {postText.ToString()}");
-                    }
-                    else if (splitInputString[1] == "wall")
-                    {
-                        // call getWall method
-                    }
-                    else if (splitInputString[1].ToLower() == "follows")
-                    {
-                        // call setFollowingUser
-                    }
-                    //user list method logic
+                    displayList = getHelpTerms();
                 }
+                else
+                {
+                    List<string> splitInputString = new List<string>(inputString.Trim().Split(' '));
+                    string username = splitInputString[0];
+                    if (Users.TryGetValue(username, out User user))
+                    {
+                        if (splitInputString.Count == 1)
+                        {
+                            displayList = user.getUserMessages();
+                        }
+                        else if (splitInputString.Contains("->"))
+                        {
+                            StringBuilder postText = new StringBuilder();
+                            if (splitInputString.Count > 3)
+                            {
+                                postText.AppendJoin(' ', splitInputString.GetRange(2, splitInputString.Count - 2));
+                            }
+                            displayList.Add(user.postMessage(postText.ToString()));
+                        }
+                        else if (splitInputString[1] == "wall")
+                        {
+                            displayList = user.getWall();
+                        }
+                        else if (splitInputString[1].ToLower() == "follows")
+                        {
+                            if (Users.TryGetValue(splitInputString[2], out User followedUser))
+                            {
+                                displayList.Add(user.followUser(followedUser));
+                            }
+                            else
+                            {
+                                Console.WriteLine("User you want to follow does not exist or you typed it incorrectly.");
+                            };
 
-
-            };
-
+                        }
+                        //user list method logic
+                    }
+                    else
+                    {
+                        displayList.Add("That user could not be found");
+                    }
+                };
+            }
             return displayList;
+
         }
 
         private List<String> getHelpTerms()
@@ -88,7 +103,7 @@ namespace csharp_social_networking
 
         private void printList(List<string> listToPrint)
         {
-            if (listToPrint.Count != 0 || listToPrint != null)
+            if (listToPrint.Count != 0 && listToPrint != null)
             {
                 foreach (string item in listToPrint)
                 {
@@ -97,7 +112,7 @@ namespace csharp_social_networking
             }
             else
             {
-                Console.WriteLine("Nothing to display");
+                Console.WriteLine("Try typing a valid command. HELP for a list of commands");
             }
         }
 

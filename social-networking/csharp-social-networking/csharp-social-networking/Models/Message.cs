@@ -14,5 +14,11 @@ namespace csharp_social_networking.Models
             MessageText = text;
             Timestamp = DateTime.UtcNow;
         }
+
+        public Message(string text, DateTime timestamp)
+        {
+            MessageText = text;
+            Timestamp = timestamp;
+        }
     }
 }
