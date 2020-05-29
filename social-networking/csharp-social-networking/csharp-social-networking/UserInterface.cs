@@ -28,18 +28,35 @@ namespace csharp_social_networking
             bool isExit = false;
             do
             {
+                Console.Write("> ");
                 userInput = Console.ReadLine();
                 try
-                {   
+                {
                     if (userInput.ToLower() == "exit")
                     {
                         isExit = true;
-                        break;
                     }
-                    printList(commandParser(userInput));
+                    else if (userInput.ToLower() == "help")
+                    {
+                        printList(getHelpTerms());
+                        Console.WriteLine();
+                    }
+                    else if (userInput.ToLower() == "save")
+                    {
+                        Console.WriteLine(userList.SaveFile(Users));
+                    }
+                    else if (userInput.ToLower() == "list")
+                    {
+                        displayUsers();
+                    }
+                    else
+                    {
+                        printList(commandParser(userInput));
+                    }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
+                    Console.WriteLine(e.Message);
                     Console.WriteLine("There is something wrong with your input. Please try again.");
                 }
 
@@ -50,61 +67,53 @@ namespace csharp_social_networking
         public List<string> commandParser(string inputString)
         {
             List<string> displayList = new List<string>();
-            if (inputString != null || inputString != "")
+            if (inputString != null && inputString != "")
             {
-                if (inputString.ToLower() == "help")
+                List<string> splitInputString = new List<string>(inputString.Trim().Split(' '));
+                string username = splitInputString[0];
+                if (Users.TryGetValue(username, out User user))
                 {
-                    displayList = getHelpTerms();
+                    if (splitInputString.Count == 1)
+                    {
+                        displayList = user.getUserMessages();
+                    }
+                    else if (splitInputString.Contains("->"))
+                    {
+                        StringBuilder postText = new StringBuilder();
+                        if (splitInputString.Count > 3)
+                        {
+                            postText.AppendJoin(' ', splitInputString.GetRange(2, splitInputString.Count - 2));
+                        }
+                        displayList.Add(user.postMessage(postText.ToString()));
+                    }
+                    else if (splitInputString[1] == "wall")
+                    {
+                        displayList = user.getWall();
+                    }
+                    else if (splitInputString[1].ToLower() == "follows")
+                    {
+                        if (Users.TryGetValue(splitInputString[2], out User followedUser))
+                        {
+                            displayList.Add(user.followUser(followedUser));
+                        }
+                        else
+                        {
+                            Console.WriteLine("User you want to follow does not exist or you typed it incorrectly.");
+                        };
+                    }
                 }
-                else if (inputString.ToLower() == "save")
+                else if (splitInputString.Contains("create"))
                 {
-                    displayList.Add(userList.SaveFile(Users));
+                    User newUser = new User(username);
+                    Users.Add(username, newUser);
+                    displayList.Add($"{username} successfully created.");
                 }
                 else
                 {
-                    List<string> splitInputString = new List<string>(inputString.Trim().Split(' '));
-                    string username = splitInputString[0];
-                    if (Users.TryGetValue(username, out User user))
-                    {
-                        if (splitInputString.Count == 1)
-                        {
-                            displayList = user.getUserMessages();
-                        }
-                        else if (splitInputString.Contains("->"))
-                        {
-                            StringBuilder postText = new StringBuilder();
-                            if (splitInputString.Count > 3)
-                            {
-                                postText.AppendJoin(' ', splitInputString.GetRange(2, splitInputString.Count - 2));
-                            }
-                            displayList.Add(user.postMessage(postText.ToString()));
-                        }
-                        else if (splitInputString[1] == "wall")
-                        {
-                            displayList = user.getWall();
-                        }
-                        else if (splitInputString[1].ToLower() == "follows")
-                        {
-                            if (Users.TryGetValue(splitInputString[2], out User followedUser))
-                            {
-                                displayList.Add(user.followUser(followedUser));
-                            }
-                            else
-                            {
-                                Console.WriteLine("User you want to follow does not exist or you typed it incorrectly.");
-                            };
-                        }
-                    }
-                    else
-                    {
-                        displayList.Add("That user could not be found. Here's the current list of users");
-                        foreach (KeyValuePair<string, User> entry in Users)
-                        {
-                            displayList.Add(entry.Key);
-                        }
-                        displayList.Add("\n");
-                    }
-                };
+                    Console.WriteLine("That user could not be found. Here's the current list of users:");
+                    displayUsers();
+                    displayList.Add("Please choose a valid user");
+                }
             }
             return displayList;
         }
@@ -115,7 +124,9 @@ namespace csharp_social_networking
             string READING = String.Format("{0,-25} : {1}", "TO READ USER MESSAGES", "<user-name>");
             string FOLLOWING = String.Format("{0,-25} : {1}", "TO FOLLOW ANOTHER USER", "<user-name> follows <another-user>");
             string WALL = String.Format("{0,-25} : {1}", "TO VIEW USER WALL", "<user-name> wall");
-            string SAVE = String.Formate("{0,-25} : {1}", "TO SAVE ALL", "save");
+            string SAVE = String.Format("{0,-25} : {1}", "TO SAVE ALL", "save");
+            string CREATE = String.Format("{0,-25} : {1}", "TO CREATE NEW USER", "<user-name> create");
+            string LIST = String.Format("{0,-25} : {1}", "TO LIST ALL USERS", "list");
 
             List<string> helpTerms = new List<string>()
             {
@@ -123,9 +134,20 @@ namespace csharp_social_networking
                 READING,
                 FOLLOWING,
                 WALL,
+                CREATE,
+                LIST,
                 SAVE
             };
             return helpTerms;
+        }
+
+        private void displayUsers()
+        {
+            foreach (KeyValuePair<string, User> entry in Users)
+            {
+                Console.WriteLine((entry.Key));
+            }
+            Console.WriteLine();
         }
 
         private void printList(List<string> listToPrint)

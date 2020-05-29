@@ -50,6 +50,7 @@ namespace csharp_social_networking.DAL
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 Console.WriteLine("Failed to load file");
             }
             return loadedFile;
